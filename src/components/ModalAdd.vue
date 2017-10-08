@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="">
-    <button id="create" type="button" class="btn btn-danger glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal"> Create Question</button>
+    <button id="create" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Ask Question</button>
                 <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -9,7 +9,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">New Question</h4>
+            <h4 class="modal-title">Your Question</h4>
           </div>
           <div class="modal-body">
             <div class="form-group">

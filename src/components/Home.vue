@@ -4,8 +4,8 @@
   <headers></headers>
   <div class="container">
   <modal-add-btn/>
-  </div><br>
-  <div>
+  </div>
+  <div class="jarak">
     <todo/>
   </div>
   </div>
@@ -15,16 +15,18 @@
 <script>
 import Headers from '@/components/Headers'
 import ModalAddBtn from '@/components/ModalAdd'
-import Todo from '@/components/Todo'
+import Questions from '@/components/Questions'
 export default {
   components: {
     Headers,
     ModalAddBtn,
-    Todo
+    Questions
   }
 }
 </script>
 
 <style>
-
+.jarak{
+  margin-top: 10px;
+}
 </style>
