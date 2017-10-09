@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'registerUser'
+      'register'
     ])
   }
 }
