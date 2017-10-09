@@ -18,6 +18,9 @@ const state = {
 }
 
 const mutations = {
+  setToken (state, payload) {
+    state.token = payload
+  },
   setQuestions(state, payload) {
     console.log('data mutations', payload)
     state.questions = payload
@@ -27,7 +30,10 @@ const mutations = {
   },
   login(state, payload) {
     state.loginUser = payload
-  }
+  },
+  clearState (state) {
+    localStorage.clear()
+  },
 }
 
 const actions = {
@@ -66,23 +72,27 @@ const actions = {
         console.error(err)
       })
   },
-  login({commit}, formLogin) {
-    http.post('/login', formLogin)
-      .then(({data}) => {
-        console.log('data pertama', data)
-        if (typeof(data) === 'object') {
-          let token = JSON.stringify(data)
-          commit('login', token)
-          localStorage.setItem('token', token)
-          router.push('/')
-        } else {
-          commit('login', data)
-        }
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }  
+  loginUser ({ commit }, payload) {
+    http.post('/login', {
+      username: payload.username,
+      password: payload.password
+    })
+    .then(response => {
+      console.log('ini respon', response)
+      console.log('token', response.data.token)
+      if (response.data.token == null) {
+        alert('Password Salah Atau Username Tidak Ada')
+      } else {
+        localStorage.setItem('token', response.data.token)
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
+  logout ({ commit }) {
+    commit('clearState')
+  },
 }
 
 const store = new Vuex.Store({
