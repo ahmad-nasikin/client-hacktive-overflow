@@ -1,26 +1,31 @@
 <template>
 <div>
   <div>
-  <headers></headers>
+  <!-- <headers></headers> -->
   <div class="container">
   <modal-add-btn/>
   </div>
   <div class="jarak">
-    <todo/>
+    <questions/>
   </div>
+  </div>
+  <div>
+    <logout/>
   </div>
 </div>
 </template>
 
 <script>
-import Headers from '@/components/Headers'
+// import Headers from '@/components/Headers'
 import ModalAddBtn from '@/components/ModalAdd'
 import Questions from '@/components/Questions'
+import Logout from '@/components/Logout'
 export default {
   components: {
-    Headers,
+    // Headers,
     ModalAddBtn,
-    Questions
+    Questions,
+    Logout
   }
 }
 </script>

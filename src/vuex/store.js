@@ -22,7 +22,6 @@ const mutations = {
     state.token = payload
   },
   setQuestions(state, payload) {
-    console.log('data mutations', payload)
     state.questions = payload
   },
   register(state, payload) {
@@ -37,27 +36,14 @@ const mutations = {
 }
 
 const actions = {
-  getAllQuestions({commit}) {
+  getAllQuestions ({ commit }) {
     http.get('/questions')
-      .then(response => {
-        console.log('respon pertama', response.data)
-        http.get('/users')
-          .then(responseUser => {
-            console.log('respon User', responseUser.data[0].id)
-            for (let i = 0; i < response.data.length; i++) {
-              for (let j = 0; j < responseUser.data.length; j++) {
-                if (response.data[i].UserId === responseUser.data[j].id) {
-                  response.data[i]['name'] = responseUser.data[j].fullname
-                }
-              }
-            }
-            commit('setQuestions', response.data)
-            console.log('set question', response.data)
-          })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    .then(response => {
+      commit('setQuestions', response.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
   register({commit}, formRegister) {
     http.post('/register', formRegister)
@@ -92,6 +78,7 @@ const actions = {
   },
   logout ({ commit }) {
     commit('clearState')
+    // this.$router.push({ path: '/login'})
   },
 }
 
