@@ -6,6 +6,7 @@
           <div class="panel panel-danger">
             <div class="panel-heading">
               <h3 class="panel-title">{{question.title}}</h3>
+              <p align="left">Created: {{question.userId.username}}</p>
             </div>
             <div class="panel-body">
               <p>{{question.content}}</p>
