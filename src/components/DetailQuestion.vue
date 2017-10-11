@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <div>
+      <answer :q_id="id"></answer>
+    </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-info">
@@ -30,8 +33,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Answer from '@/components/Answer'
 export default {
   props: ['id'],
+  components: {
+    Answer
+  },
   computed: {
     ...mapState([
       'questionbyid'

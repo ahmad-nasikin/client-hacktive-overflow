@@ -12,8 +12,8 @@ const http = axios.create({
 const state = {
   questions: [],
   questionbyid: {},
-  userQuestion: [],
-  userAnswer: '',
+  // userQuestion: [],
+  userAnswer: [],
   registerUser: {},
   loginUser: ''
 }
@@ -32,6 +32,10 @@ const mutations = {
   setCreateQuestion(state, payload) {
     state.questions.push(payload)
     state.userQuestion = payload
+  },
+  setCreateAnswer(state, payload) {
+    state.questionbyid.answer.push(payload)
+    state.userAnswer = payload
   },
   deleteQuestion(state, payload) {
     console.log('payload', payload)
@@ -79,6 +83,21 @@ const actions = {
     .then(response => {
       console.log('create questions', response.data)
       context.commit('setCreateQuestion', response.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
+  createAnswer (context, payload) {
+    console.log('answer', payload)
+    http.post(`/answer/${payload.id}`, payload, {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    .then(response => {
+      console.log('create answer', response.data)
+      context.commit('setCreateAnswer', response.data)
     })
     .catch(err => {
       console.log(err)
