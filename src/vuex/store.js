@@ -6,6 +6,7 @@ import router from '../router/'
 Vue.use(Vuex)
 const http = axios.create({
   baseURL: 'http://localhost:3000'
+  // baseURL: 'http://35.187.251.216'
 })
 
 const state = {
@@ -21,12 +22,21 @@ const mutations = {
   setToken (state, payload) {
     state.token = payload
   },
-  setQuestions(state, payload) {
+  setAllQuestions(state, payload) {
     state.questions = payload
+  },
+  setQuestions(state, payload) {
+    console.log('set', payload)
+    state.questionbyid = payload
   },
   setCreateQuestion(state, payload) {
     state.questions.push(payload)
     state.userQuestion = payload
+  },
+  deleteQuestion(state, payload) {
+    console.log('payload', payload)
+    let idx =state.questions.findIndex((question) => question.id === payload)
+    state.questions.splice(idx, 1)
   },
   register(state, payload) {
     state.registerUser = payload
@@ -36,13 +46,24 @@ const mutations = {
   },
   clearState (state) {
     localStorage.clear()
-  },
+  }
 }
 
 const actions = {
   getAllQuestions ({ commit }) {
     http.get('/questions')
     .then(response => {
+      commit('setAllQuestions', response.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
+  getOneQuestion ({ commit }, id) {
+    console.log('id', id)
+    http.get(`/questions/${id}`)
+    .then(response => {
+      console.log('respon', response)
       commit('setQuestions', response.data)
     })
     .catch(err => {
@@ -50,10 +71,7 @@ const actions = {
     })
   },
   createQuestion (context, payload) {
-    http.post('/questions', {
-      title: payload.title,
-      content: payload.content
-    }, {
+    http.post('/questions', payload, {
       headers: {
         token: localStorage.getItem('token')
       }
@@ -65,6 +83,31 @@ const actions = {
     .catch(err => {
       console.log(err)
     })
+  },
+  deleteQuestion ({ commit }, question) {
+    console.log('question', question)
+    http.delete(`/questions/` + question._id, {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    .then(response => {
+      commit('deleteQuestion', question._id)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
+  editQuestion ({commit}, question) {
+    http.put(`/questions/${question.id}`, {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    .then(({ data }) => {
+      console.log('question berhasil update')
+    })
+    .catch(err => console.error(err))
   },
   register({commit}, formRegister) {
     http.post('/register', formRegister)

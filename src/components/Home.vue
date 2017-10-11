@@ -9,9 +9,6 @@
     <questions/>
   </div>
   </div>
-  <div>
-    <logout/>
-  </div>
 </div>
 </template>
 
@@ -19,13 +16,11 @@
 // import Headers from '@/components/Headers'
 import ModalAddBtn from '@/components/ModalAdd'
 import Questions from '@/components/Questions'
-import Logout from '@/components/Logout'
 export default {
   components: {
     // Headers,
     ModalAddBtn,
-    Questions,
-    Logout
+    Questions
   }
 }
 </script>

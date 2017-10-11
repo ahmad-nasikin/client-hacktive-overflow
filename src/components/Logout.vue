@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="col-md-offset-4 col-md-2 col-md-offset-5">
-      <button type="button" class="btn btn-primary" @click="logout()">Logout</button>
+      <button type="button" class="btn btn-danger" @click="logout()">Logout</button>
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
     ...mapActions([
       'logout'
     ]),
-    logout () {
+    logout1 () {
       this.$router.push('/login')
     }
   }
@@ -21,5 +21,7 @@ export default {
 </script>
 
 <style>
+.btn{
 
+}
 </style>
